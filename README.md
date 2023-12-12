@@ -20,7 +20,7 @@ A Prometheus exporter for the AmbientWeather weather stations. The exporter will
 
 **AmbiantWeather**
 
-You willneed to configure an [API](https://ambientweather.docs.apiary.io/#introduction/authentication) and application key in the AmbiantWeather API dashboard.
+You will need to configure an [API](https://ambientweather.docs.apiary.io/#introduction/authentication) and application key in the AmbiantWeather API dashboard.
 
 ## Setup
 
