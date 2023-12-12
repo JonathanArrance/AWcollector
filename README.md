@@ -4,7 +4,7 @@ A Prometheus exporter for the AmbientWeather weather stations. The exporter will
 
 ## Pre-reqs
 
-Prometheus
+**Prometheus**
 
 [Install](https://prometheus.io/docs/prometheus/latest/installation/)
 
@@ -12,11 +12,15 @@ Prometheus
 
 [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/)
 
-Grafana
+**Grafana**
 
 [Install](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/)
 
 [Configs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/)
+
+**AmbiantWeather**
+
+You willneed to configure an [API](https://ambientweather.docs.apiary.io/#introduction/authentication) and application key in the AmbiantWeather API dashboard.
 
 ## Setup
 
@@ -25,6 +29,8 @@ Grafana
 Python Prometheus v0.17.1
 
 Docker
+
+AmbiantWeather API
 
 **Build**
 
