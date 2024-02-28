@@ -73,7 +73,9 @@ class Operations():
             response = requests.request("GET", self.url, headers=headers, data=payload)
         except Exception as e:
             logging.error(f"Could not get the device info: {e}")
-            raise e
+            response = [{}]
+            #raise e
+            print(e)
 
         return json.loads(response.text)[0]
     
