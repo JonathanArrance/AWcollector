@@ -48,7 +48,11 @@ class Operations():
                 'aw_solarradiation':self.device['lastData']['solarradiation'],
                 'aw_windspeedmph':self.device['lastData']['windspeedmph'],
                 'aw_barametric':self.device['lastData']['baromabsin'],
-                'aw_winddir':self.device['lastData']['winddir']
+                'aw_winddir':self.device['lastData']['winddir'],
+                'aw_indoorpol':self.device['lastData']['pm25_in'],
+                'aw_outdoorpol':self.device['lastData']['pm25'],
+                'aw_indoorpol_24h':self.device['lastData']['pm25_in_24h'],
+                'aw_outdoorpol_24h':self.device['lastData']['pm25_24h']
                 }
     
     def _get_devices(self):
@@ -103,6 +107,11 @@ class Prometheus():
         self.aw_solarradiation = Gauge('aw_solarradiation','Solar radiation for the day.',['aw_name','aw_location','aw_mac'])
         self.aw_barametric = Gauge('aw_barametric','Absolute barametric pressure measured in bars.',['aw_name','aw_location','aw_mac'])
         self.aw_winddir = Gauge('aw_winddir','Wind direction in degrees.',['aw_name','aw_location','aw_mac'])
+        self.aw_indoorpol = Gauge('aw_indoorpol','Indoor polution number.',['aw_name','aw_location','aw_mac'])
+        self.aw_outdoorpol = Gauge('aw_outdoorpol','Outdoor polution number.',['aw_name','aw_location','aw_mac'])
+        self.aw_indoorpol_24h = Gauge('aw_indoorpol_24h','Indoor polution number 24 hour.',['aw_name','aw_location','aw_mac'])
+        self.aw_outdoorpol_24h = Gauge('aw_outdoorpol_24h','Outdoor polution number 24 hour.',['aw_name','aw_location','aw_mac'])
+        
 
     def current_readings(self,input_dict):
         """
@@ -134,6 +143,10 @@ class Prometheus():
             self.aw_solarradiation.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_solarradiation'])
             self.aw_barametric.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_barametric'])
             self.aw_winddir.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_winddir'])
+            self.aw_indoorpol.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_indoorpol'])
+            self.aw_outdoorpol.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_outdoorpol'])
+            self.aw_indoorpol_24h.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_indoorpol_24h'])
+            self.aw_outdoorpol_24h.labels(input_dict['name'],input_dict['location'],input_dict['mac']).set(input_dict['aw_outdoorpol_24h'])
         except Exception as e:
             logging.error(e)
             logging.error("Could not emit the weather metrics.")
