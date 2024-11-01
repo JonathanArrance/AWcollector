@@ -30,6 +30,14 @@ class Operations():
         return self.device['macAddress']
 
     def get_metrics(self):
+        keys = ['dewPointin','tempinf','feelsLikein','humidityin','lightning_day','lightning_hour','lightning_time','lightning_distance',
+                   'dailyrainin','weeklyrainin','monthlyrainin','yearlyrainin','maxdailygust','solarradiation','windspeedmph','baromabsin',
+                   'winddir','pm25_in','pm25','pm25_in_24h','pm25_24h']
+        #ambient API does not set to 0 it just does not put the key in. This screws things up
+        for key in keys:
+            if key not in self.device['lastData']:
+                print(key)
+                self.device['lastData'][key] = 0
 
         return {
                 'aw_dewpoint':self.device['lastData']['dewPointin'],
@@ -78,7 +86,6 @@ class Operations():
         except Exception as e:
             logging.error(f"Could not get the device info: {e}")
             response = [{}]
-            #raise e
             print(e)
 
         return json.loads(response.text)[0]
