@@ -2,6 +2,8 @@ import settings
 import requests
 import logging
 import json
+import time
+
 from prometheus_client import start_http_server
 from prometheus_client import Gauge
 from prometheus_client import Counter
@@ -36,7 +38,6 @@ class Operations():
         #ambient API does not set to 0 it just does not put the key in. This screws things up
         for key in keys:
             if key not in self.device['lastData']:
-                print(key)
                 self.device['lastData'][key] = 0
 
         return {
@@ -66,13 +67,13 @@ class Operations():
     def _get_devices(self):
 
         self.url = f"{settings.amb_endpoint}/devices/?apiKey={settings.api_key}&applicationKey={settings.app_key}"
-
+        time.sleep(2)
         return self._getvalue()
 
     def _get_device(self,mac):
         
         self.url = f"{settings.amb_endpoint}/devices/{mac}?apiKey={settings.api_key}&applicationKey={settings.app_key}&limit=1&end_date={settings.current_time}"
-
+        time.sleep(2)
         return self._getvalue() 
 
     def _getvalue(self):
